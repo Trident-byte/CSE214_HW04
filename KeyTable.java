@@ -34,12 +34,16 @@ public class KeyTable{
         int charsUsed = 0;
         for(int i = 0; i < phrase.length(); i++){
             char letter = phrase.charAt(i);
-            int pos = (int) letter;
-            if(!alphabet[pos - 'a']){
+            if(!alphabet[letter - 'a']){
                 keyTable.key[charsUsed/5][charsUsed%5] = letter;
-                alphabet[pos - 'a'] = true;
+                alphabet[letter - 'a'] = true;
                 charsUsed++;
             }
+        }
+        if(!alphabet['x']){
+            keyTable.key[charsUsed/5][charsUsed%5] = 'x';
+            charsUsed++;
+            alphabet['x'] = true;
         }
         for(int i = 0; i < alphabet.length; i++){
             char letter = (char) (i + 'a');
