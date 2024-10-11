@@ -1,30 +1,57 @@
 import java.util.LinkedList;
 
-public class Phrase {
-    LinkedList<Bigram> queue;
-    private boolean empty;
-    private int size;
+public class Phrase extends LinkedList<Bigram>{
 
+    /**
+     * Creates an empty Phrase
+     */
     public Phrase(){
-        queue = new LinkedList<>();
+        super();
     }
+
+    public static Phrase buildPhraseFromStringforEnc(String s){
+        return null;
+    }
+
+    /**
+     * Adds a new Bigram to the end of the Phrase 
+     *
+     * @param b
+     *    New bigram to be added
+     */
     public void enqueue(Bigram b){
-
+        addLast(b);
     }
 
+    /**
+     * Removes and returns the first Bigram in the Phrase
+     *
+     * @return
+     *    Returns the first Bigram in Phrase
+     */
     public Bigram dequeue(){
-        return null;
+        return removeFirst();
     }
 
+    /**
+     * Returns without removing the first Bigram in the phrase;
+     *
+     * @return
+     *    The first bigram in nthe phrase
+     */
     public Bigram peek(){
+        return peekFirst();
+    }
+
+    public Phrase encrypt(KeyTable key){
         return null;
     }
 
-    public int size(){
-        return size;
+    public Phrase decrypt(KeyTable key){
+        return null;
     }
 
-    public boolean isEmpty(){
-        return empty;
+    public String toString(){
+        return null;
     }
 }
