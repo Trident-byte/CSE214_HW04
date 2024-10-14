@@ -34,21 +34,22 @@ public class KeyTable{
         int charsUsed = 0;
         for(int i = 0; i < phrase.length(); i++){
             char letter = phrase.charAt(i);
-            if(!alphabet[letter - 'a']){
+            if(Character.isAlphabetic(letter) && !alphabet[letter - 'a']){
                 keyTable.key[charsUsed/5][charsUsed%5] = letter;
                 alphabet[letter - 'a'] = true;
                 charsUsed++;
             }
         }
-        if(!alphabet['x']){
+        if(!alphabet['x' - 'a']){
             keyTable.key[charsUsed/5][charsUsed%5] = 'x';
             charsUsed++;
-            alphabet['x'] = true;
+            alphabet['x' - 'a'] = true;
         }
         for(int i = 0; i < alphabet.length; i++){
             char letter = (char) (i + 'a');
             if(!alphabet[i] && letter != 'j'){
                 keyTable.key[charsUsed/5][charsUsed%5] = letter;
+                charsUsed++;
             }
         }
         return keyTable;
@@ -125,7 +126,7 @@ public class KeyTable{
             }
             s += "\n";
         }
-        return s;
+        return s.toUpperCase();
     }
 
     private int[] findPosition(char c){
