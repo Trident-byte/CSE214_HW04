@@ -48,6 +48,12 @@ public class PlayFairEncryptionEngine {
     private static KeyTable generateKey(Scanner input){
         System.out.print("Enter key phrase: ");
         String keyPhrase= input.nextLine();
+        System.out.println("Menu:");
+        System.out.println("(CK) - Change key");
+        System.out.println("(PK) - Print key");
+        System.out.println("(EN) - Encrypt");
+        System.out.println("(DE) - Decrypt");
+        System.out.println("(Q) - Quit");
         if(keyPhrase == ""){
             keyPhrase = "playfair example";
         }

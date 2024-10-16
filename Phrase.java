@@ -29,7 +29,7 @@ public class Phrase extends LinkedList<Bigram>{
      */
     public static Phrase buildPhraseFromStringforEnc(String s){
         Phrase newPhrase = new Phrase();
-        s = s.replace(" ", "").toLowerCase();
+        s = s.replaceAll("[^a-zA-Z]+", "").toLowerCase();
         for(int i = 0; i < s.length(); i += 2){
             if(i + 1 == s.length()){
                 s += "x";
@@ -105,12 +105,12 @@ public class Phrase extends LinkedList<Bigram>{
             int[] coords = findCoords(dequeue(), key);
             char char1,char2;
             if(coords[1] == coords[3]){
-                char1 = table[coords[0]][coords[1] + 1 % KEY_TABLE_DIMENSION];
-                char2 = table[coords[2]][coords[3] + 1 % KEY_TABLE_DIMENSION];
-            }
-            else if(coords[0] == coords[2]){
                 char1 = table[coords[0] + 1 % KEY_TABLE_DIMENSION][coords[1]];
                 char2 = table[coords[2] + 1 % KEY_TABLE_DIMENSION][coords[3]];
+            }
+            else if(coords[0] == coords[2]){
+                char1 = table[coords[0]][coords[1] + 1 % KEY_TABLE_DIMENSION];
+                char2 = table[coords[2]][coords[3] + 1 % KEY_TABLE_DIMENSION];
             }
             else{
                 char1 = table[coords[0]][coords[3]];
@@ -144,12 +144,12 @@ public class Phrase extends LinkedList<Bigram>{
             int[] coords = findCoords(dequeue(), key);
             char char1,char2;
             if(coords[1] == coords[3]){
-                char1 = table[coords[0]][Math.max(coords[1] - 1 % KEY_TABLE_DIMENSION, 0)];
-                char2 = table[coords[2]][Math.max(coords[3] - 1 % KEY_TABLE_DIMENSION, 0)];
-            }
-            else if(coords[0] == coords[2]){
                 char1 = table[Math.max(coords[0] - 1 % KEY_TABLE_DIMENSION, 0)][coords[1]];
                 char2 = table[Math.max(coords[2] - 1 % KEY_TABLE_DIMENSION, 0)][coords[3]];
+            }
+            else if(coords[0] == coords[2]){
+                char1 = table[coords[0]][Math.max(coords[1] - 1 % KEY_TABLE_DIMENSION, 0)];
+                char2 = table[coords[2]][Math.max(coords[3] - 1 % KEY_TABLE_DIMENSION, 0)];
             }
             else{
                 char1 = table[coords[0]][coords[3]];
