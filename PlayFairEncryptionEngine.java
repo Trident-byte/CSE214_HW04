@@ -10,7 +10,7 @@ import java.util.Scanner;
  *    Stony Brook ID: 116125954
  *    Recitation: 02
  **/
-public class PlayFairEncryptionEngine {
+public class PlayfairEncryptionEngine {
     /**
     * Main will first prompt the user for input 
     * in order to generate the KeyTable object. If no input is given, a 
@@ -25,6 +25,12 @@ public class PlayFairEncryptionEngine {
         KeyTable key = generateKey(input);
         System.out.println(key.toString());
         boolean closed = false;
+        System.out.println("Menu:");
+        System.out.println("(CK) - Change key");
+        System.out.println("(PK) - Print key");
+        System.out.println("(EN) - Encrypt");
+        System.out.println("(DE) - Decrypt");
+        System.out.println("(Q) - Quit");
         while(!closed){
             System.out.print("Please select an option: ");
             String command = input.nextLine().strip().toUpperCase();
@@ -35,7 +41,11 @@ public class PlayFairEncryptionEngine {
                 System.out.println(key.toString());
             }
             else if(command.equals("EN")){
-                Phrase phrase = encryptPhrasae(input, key);
+                Phrase phrase = encryptPhrase(input, key);
+                System.out.println(phrase.toString());
+            }
+            else if(command.equals("DE")){
+                Phrase phrase = decryptPhrase(input, key);
                 System.out.println(phrase.toString());
             }
             else if(command.equals("Q")){
@@ -48,12 +58,6 @@ public class PlayFairEncryptionEngine {
     private static KeyTable generateKey(Scanner input){
         System.out.print("Enter key phrase: ");
         String keyPhrase= input.nextLine();
-        System.out.println("Menu:");
-        System.out.println("(CK) - Change key");
-        System.out.println("(PK) - Print key");
-        System.out.println("(EN) - Encrypt");
-        System.out.println("(DE) - Decrypt");
-        System.out.println("(Q) - Quit");
         if(keyPhrase == ""){
             keyPhrase = "playfair example";
         }
@@ -68,12 +72,27 @@ public class PlayFairEncryptionEngine {
         return null;
     }
 
-    private static Phrase encryptPhrasae(Scanner input, KeyTable key){
+    private static Phrase encryptPhrase(Scanner input, KeyTable key){
         System.out.print("Please enter a phrase to encrypt: ");
         String string= input.nextLine();
         try{
             Phrase phrase = Phrase.buildPhraseFromStringforEnc(string);
             phrase = phrase.encrypt(key);
+            return phrase;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Invaliad String");
+        }
+        return null;
+    }
+
+    private static Phrase decryptPhrase(Scanner input, KeyTable key){
+        System.out.print("Please enter a phrase to encrypt: ");
+        String string= input.nextLine();
+        try{
+            Phrase phrase = Phrase.buildPhraseFromStringforEnc(string);
+            phrase = phrase.decrypt(key);
             return phrase;
         }
         catch(Exception e){

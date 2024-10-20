@@ -10,6 +10,7 @@ import java.util.LinkedList;
  *    Recitation: 02
  **/
 public class Phrase extends LinkedList<Bigram>{
+    private int size;
     private static final int KEY_TABLE_DIMENSION = 5;
     /**
      * Creates an empty Phrase
@@ -61,6 +62,7 @@ public class Phrase extends LinkedList<Bigram>{
      */
     public void enqueue(Bigram b){
         addLast(b);
+        size++;
     }
 
     /**
@@ -70,6 +72,7 @@ public class Phrase extends LinkedList<Bigram>{
      *    Returns the first Bigram in Phrase
      */
     public Bigram dequeue(){
+        size--;
         return removeFirst();
     }
 
@@ -105,12 +108,12 @@ public class Phrase extends LinkedList<Bigram>{
             int[] coords = findCoords(dequeue(), key);
             char char1,char2;
             if(coords[1] == coords[3]){
-                char1 = table[coords[0] + 1 % KEY_TABLE_DIMENSION][coords[1]];
-                char2 = table[coords[2] + 1 % KEY_TABLE_DIMENSION][coords[3]];
+                char1 = table[(coords[0] + 1) % KEY_TABLE_DIMENSION][coords[1]];
+                char2 = table[(coords[2] + 1) % KEY_TABLE_DIMENSION][coords[3]];
             }
             else if(coords[0] == coords[2]){
-                char1 = table[coords[0]][coords[1] + 1 % KEY_TABLE_DIMENSION];
-                char2 = table[coords[2]][coords[3] + 1 % KEY_TABLE_DIMENSION];
+                char1 = table[coords[0]][(coords[1] + 1) % KEY_TABLE_DIMENSION];
+                char2 = table[coords[2]][(coords[3] + 1) % KEY_TABLE_DIMENSION];
             }
             else{
                 char1 = table[coords[0]][coords[3]];
@@ -144,12 +147,24 @@ public class Phrase extends LinkedList<Bigram>{
             int[] coords = findCoords(dequeue(), key);
             char char1,char2;
             if(coords[1] == coords[3]){
-                char1 = table[Math.max(coords[0] - 1 % KEY_TABLE_DIMENSION, 0)][coords[1]];
-                char2 = table[Math.max(coords[2] - 1 % KEY_TABLE_DIMENSION, 0)][coords[3]];
+                if(coords[0] == 0){
+                    coords[0] = KEY_TABLE_DIMENSION;
+                }
+                if(coords[2] == 0){
+                    coords[2] = KEY_TABLE_DIMENSION;
+                }
+                char1 = table[coords[0] - 1][coords[1]];
+                char2 = table[coords[2] - 1][coords[3]];
             }
             else if(coords[0] == coords[2]){
-                char1 = table[coords[0]][Math.max(coords[1] - 1 % KEY_TABLE_DIMENSION, 0)];
-                char2 = table[coords[2]][Math.max(coords[3] - 1 % KEY_TABLE_DIMENSION, 0)];
+                if(coords[1] == 0){
+                    coords[1] = KEY_TABLE_DIMENSION;
+                }
+                if(coords[3] == 0){
+                    coords[3] = KEY_TABLE_DIMENSION;
+                }
+                char1 = table[coords[0]][coords[1] - 1];
+                char2 = table[coords[2]][coords[3] - 1];
             }
             else{
                 char1 = table[coords[0]][coords[3]];
@@ -159,6 +174,28 @@ public class Phrase extends LinkedList<Bigram>{
             newPhrase.enqueue(newBigram);
         }
         return newPhrase;
+    }
+
+    @Override
+    /**
+     * Returns the size of queue
+     * 
+     * @return
+     *    returns size of queue
+     */
+    public int size(){
+        return size;
+    }
+
+    @Override
+    /**
+     * Returns if the queue is empty
+     * 
+     * @return
+     *    If size equal zero which indicates if its empty or not
+     */
+    public boolean isEmpty(){
+        return size == 0;
     }
 
     /**

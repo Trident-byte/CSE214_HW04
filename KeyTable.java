@@ -40,11 +40,6 @@ public class KeyTable{
                 charsUsed++;
             }
         }
-        if(!alphabet['x' - 'a']){
-            keyTable.key[charsUsed/5][charsUsed%5] = 'x';
-            charsUsed++;
-            alphabet['x' - 'a'] = true;
-        }
         for(int i = 0; i < alphabet.length; i++){
             char letter = (char) (i + 'a');
             if(!alphabet[i] && letter != 'j'){
