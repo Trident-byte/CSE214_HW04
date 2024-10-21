@@ -10,7 +10,6 @@ import java.util.LinkedList;
  *    Recitation: 02
  **/
 public class Phrase extends LinkedList<Bigram>{
-    private int size;
     private static final int KEY_TABLE_DIMENSION = 5;
 
     /**
@@ -55,7 +54,6 @@ public class Phrase extends LinkedList<Bigram>{
      */
     public void enqueue(Bigram b){
         addLast(b);
-        size++;
     }
 
     /**
@@ -65,7 +63,6 @@ public class Phrase extends LinkedList<Bigram>{
      *    Returns the first Bigram in Phrase
      */
     public Bigram dequeue(){
-        size--;
         return removeFirst();
     }
 
