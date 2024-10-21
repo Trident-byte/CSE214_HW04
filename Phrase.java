@@ -12,12 +12,6 @@ import java.util.LinkedList;
 public class Phrase extends LinkedList<Bigram>{
     private int size;
     private static final int KEY_TABLE_DIMENSION = 5;
-    /**
-     * Creates an empty Phrase
-     */
-    public Phrase(){
-        super();
-    }
 
     /**
      * Builds and returns a new Phrase object, which 
@@ -48,7 +42,6 @@ public class Phrase extends LinkedList<Bigram>{
                 s = s.substring(0, i + 1) + "x" + s.substring(i + 1);
             }
             Bigram nextBigram = new Bigram(char1, char2);
-            System.out.println(nextBigram.toString());
             newPhrase.enqueue(nextBigram);
         }
         return newPhrase;
@@ -174,28 +167,6 @@ public class Phrase extends LinkedList<Bigram>{
             newPhrase.enqueue(newBigram);
         }
         return newPhrase;
-    }
-
-    @Override
-    /**
-     * Returns the size of queue
-     * 
-     * @return
-     *    returns size of queue
-     */
-    public int size(){
-        return size;
-    }
-
-    @Override
-    /**
-     * Returns if the queue is empty
-     * 
-     * @return
-     *    If size equal zero which indicates if its empty or not
-     */
-    public boolean isEmpty(){
-        return size == 0;
     }
 
     /**
