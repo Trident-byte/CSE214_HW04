@@ -22,12 +22,20 @@ public class KeyTable{
     /**
      * Creates a key based on a given phrase 
      * 
+     * <dt>Precondition
+     *    <dd>phrase is not null
+     * 
      * @param phrase
      *    Phrase used to generate key
      * @return
      *    Returns a new KeyTable object with a full key table
+     * @throws IllegalArgumentException
+     *    Thrown if phrase is null
      */
-    public static KeyTable buildFromString(String phrase){
+    public static KeyTable buildFromString(String phrase) throws IllegalArgumentException{
+        if(phrase == null){
+            throw new IllegalArgumentException();
+        }
         boolean[] alphabet;
         alphabet = new boolean[26];
         KeyTable keyTable = new KeyTable();
@@ -63,7 +71,7 @@ public class KeyTable{
      *    IllegalArgumentException thrown if c is not a valid letter in the key matrix.
      */
     public int findRow(char c) throws IllegalArgumentException{
-        if(!Character.isAlphabetic(c)){
+        if(!Character.isLetter(c)){
             throw new IllegalArgumentException("Not a valid letter");
         }
         return findPosition(c)[0];
@@ -82,7 +90,7 @@ public class KeyTable{
      *    IllegalArgumentException thrown if c is not a valid letter in the key matrix.
      */
     public int findCol(char c) throws IllegalArgumentException{
-        if(!Character.isAlphabetic(c)){
+        if(!Character.isLetter(c)){
             throw new IllegalArgumentException("Not a valid letter");
         }
         return findPosition(c)[1];
